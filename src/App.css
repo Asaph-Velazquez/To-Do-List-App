@@ -52,6 +52,21 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+footer{
+  background-color: var(--background-secondary);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav{
+  margin: 0%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--background-secondary);
+  border-radius: 0.5rem;
+  
+}
 /* Enlaces de Navegación */
 .nav-link {
   color: var(--accent-primary);
