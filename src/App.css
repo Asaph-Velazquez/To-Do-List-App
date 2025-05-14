@@ -1,19 +1,104 @@
-/*Dark mode theme*/
-:root{
-  --bs-dark-bg: #121212;
-  --bs-dark-text-emphasis: #fff;
-  --bs-dark-text-secondary: #d318b4;
+/* Paleta de Colores Moderna - Tema Claro/Oscuro */
+:root {
+  /* Tema Claro - Paleta Principal */
+  --light-bg-primary: #f9f7f5;       /* Fondo principal suave */
+  --light-bg-secondary: #f0eae5;     /* Fondo secundario cálido */
+  --light-text-primary: #2d3142;     /* Texto principal - gris azulado oscuro */
+  --light-text-secondary: #5c5f7a;   /* Texto secundario - gris medio con toque púrpura */
+  --light-accent-primary: #3f8efc;   /* Acento primario - azul vibrante */
+  --light-accent-secondary: #4ecdc4; /* Acento secundario - turquesa */
+  --light-accent-tertiary: #ff6b6b;  /* Acento terciario - coral */
+  --light-border: #e0e0e0;           /* Bordes suaves */
+  
+  /* Tema Oscuro - Paleta Principal */
+  --dark-bg-primary: #1f2430;        /* Fondo principal - azul oscuro profundo */
+  --dark-bg-secondary: #2b303b;      /* Fondo secundario - gris azulado oscuro */
+  --dark-text-primary: #e6ecf1;      /* Texto principal - blanco con toque azul */
+  --dark-text-secondary: #a1adb8;    /* Texto secundario - gris claro con toque azul */
+  --dark-accent-primary: #5ccfe6;    /* Acento primario - cian */
+  --dark-accent-secondary: #5fd7a7;  /* Acento secundario - menta */
+  --dark-accent-tertiary: #ff9166;   /* Acento terciario - naranja durazno */
+  --dark-border: #3d4455;            /* Bordes definidos */
+  
+  /* Variables Iniciales (tema claro por defecto) */
+  --background-color: var(--light-bg-primary);
+  --background-secondary: var(--light-bg-secondary);
+  --text-color: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --accent-primary: var(--light-accent-primary);
+  --accent-secondary: var(--light-accent-secondary);
+  --accent-tertiary: var(--light-accent-tertiary);
+  --border-color: var(--light-border);
 }
 
-body{
-  background-color: var(--bs-dark-bg);
-  color: var(--bs-dark-text-emphasis);
+/* Media Query para Tema Oscuro según preferencia del sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: var(--dark-bg-primary);
+    --background-secondary: var(--dark-bg-secondary);
+    --text-color: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --accent-primary: var(--dark-accent-primary);
+    --accent-secondary: var(--dark-accent-secondary);
+    --accent-tertiary: var(--dark-accent-tertiary);
+    --border-color: var(--dark-border);
+  }
 }
 
-.nav-link{
-  color: var(--bs-dark-text-emphasis);
+/* Estilos Básicos */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-link:hover{
-  color: var(--bs-dark-text-secondary);
+/* Enlaces de Navegación */
+.nav-link {
+  color: var(--accent-primary);
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-secondary);
+  transform: translateY(-1px);
+}
+
+.nav-link:active {
+  color: var(--accent-tertiary);
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--background-color);
+}
+
+.btn-secondary {
+  background-color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  color: var(--background-color);
+}
+
+/* Tarjetas y Contenedores */
+.card, .container-highlight {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/* Textos Destacados */
+.text-highlight {
+  color: var(--accent-secondary);
+}
+
+.text-emphasis {
+  color: var(--accent-tertiary);
+  font-weight: 500;
+}
+
+/* Separadores */
+hr {
+  border-color: var(--border-color);
+  opacity: 0.5;
 }

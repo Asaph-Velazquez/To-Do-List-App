@@ -2,13 +2,6 @@ function NavBar() {
   return (
     <div>
       <nav className="nav nav-pills flex-column flex-sm-row">
-        <a
-          className="flex-sm-fill text-sm-center nav-link active"
-          aria-current="page"
-          href="#"
-        >
-          Active
-        </a>
         <a className="flex-sm-fill text-sm-center nav-link" href="#">
           Longer nav link
         </a>
