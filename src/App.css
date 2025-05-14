@@ -2,13 +2,18 @@
 :root{
   --bs-dark-bg: #121212;
   --bs-dark-text-emphasis: #fff;
-  
+  --bs-dark-text-secondary: #d318b4;
 }
 
 body{
   background-color: var(--bs-dark-bg);
+  color: var(--bs-dark-text-emphasis);
 }
 
 .nav-link{
   color: var(--bs-dark-text-emphasis);
+}
+
+.nav-link:hover{
+  color: var(--bs-dark-text-secondary);
 }
