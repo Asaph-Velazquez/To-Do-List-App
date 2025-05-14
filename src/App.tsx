@@ -1,17 +1,20 @@
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom' 
 import { useState } from 'react'
+import { Routes } from 'react-router-dom'
+
 import './App.css'
+import './index.css'
 
 {/*Componetns imports*/}
 import HomePage from './components/HomePage'
-import { Routes } from 'react-router-dom'
-
+import NavBar from './components/Essentials/navBar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <NavBar />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='*' element={<HomePage />} />

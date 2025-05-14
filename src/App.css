@@ -1,0 +1,14 @@
+/*Dark mode theme*/
+:root{
+  --bs-dark-bg: #121212;
+  --bs-dark-text-emphasis: #fff;
+  
+}
+
+body{
+  background-color: var(--bs-dark-bg);
+}
+
+.nav-link{
+  color: var(--bs-dark-text-emphasis);
+}
