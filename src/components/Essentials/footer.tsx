@@ -4,10 +4,10 @@ function Footer() {
       {/* Remove the container if you want to extend the Footer to full width. */}
       <div className="container my-5">
         <footer
-          className="text-center text-lg-start text-white"
+          className="text-center text-lg-start"
         >
           <div className="container p-4 pb-0">
-            <section className="">
+            <section>
               <div className="row">
                 <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                   <h6 className="text-uppercase mb-4 font-weight-bold">
@@ -27,16 +27,16 @@ function Footer() {
                     Products
                   </h6>
                   <p>
-                    <a className="text-white">MDBootstrap</a>
+                    <a>MDBootstrap</a>
                   </p>
                   <p>
-                    <a className="text-white">MDWordPress</a>
+                    <a>MDWordPress</a>
                   </p>
                   <p>
-                    <a className="text-white">BrandFlow</a>
+                    <a>BrandFlow</a>
                   </p>
                   <p>
-                    <a className="text-white">Bootstrap Angular</a>
+                    <a>Bootstrap Angular</a>
                   </p>
                 </div>
 
@@ -119,7 +119,7 @@ function Footer() {
           </div>
           <div className="text-center p-3">
             © 2020 Copyright:
-            <a className="text-white" href="https://mdbootstrap.com/">
+            <a href="https://mdbootstrap.com/">
               MDBootstrap.com
             </a>
           </div>

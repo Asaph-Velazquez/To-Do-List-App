@@ -1,8 +1,10 @@
 function HomePage() {
     return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
+        <main>
+            <h1 style={{ textAlign: "center", width: "100%" }}>To-Do List</h1>
+            
+
+        </main>
     );
 }
 
