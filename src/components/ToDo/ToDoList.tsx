@@ -94,57 +94,6 @@ function ToDoList() {
       </div>
     </div>
   </div>
-
-  {/* Form */}
-  <div className="mt-5" style={{ maxWidth: "600px", margin: "0 auto" }}>
-    <div className="mb-3">
-      <label htmlFor="TaskName" className="form-label" style={{ color: "var(--text-color)" }}>
-        Task Name
-      </label>
-      <input 
-        type="text" 
-        className="form-control" 
-        id="TaskName" 
-        disabled 
-        style={{
-          backgroundColor: "var(--background-secondary)",
-          color: "var(--text-color)",
-          borderColor: "var(--border-color)"
-        }}
-      />
-    </div>
-    <div className="mb-3">
-      <label htmlFor="Description" className="form-label" style={{ color: "var(--text-color)" }}>
-        Description
-      </label>
-      <input 
-        type="text" 
-        className="form-control" 
-        id="Description" 
-        disabled 
-        style={{
-          backgroundColor: "var(--background-secondary)",
-          color: "var(--text-color)",
-          borderColor: "var(--border-color)"
-        }}
-      />
-    </div>
-    <div className="mb-3">
-      <label htmlFor="DueDate" className="form-label" style={{ color: "var(--text-color)" }}>
-        Due Date
-      </label>
-      <input 
-        type="date" 
-        className="form-control" 
-        id="DueDate" 
-        style={{
-          backgroundColor: "var(--background-secondary)",
-          color: "var(--text-color)",
-          borderColor: "var(--border-color)"
-        }}
-      />
-    </div>
-  </div>
 </main>
   );
 }
