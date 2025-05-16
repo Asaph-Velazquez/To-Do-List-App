@@ -1,14 +1,14 @@
 /* Paleta de Colores Moderna - Tema Claro/Oscuro */
 :root {
-  /* Tema Claro - Paleta Principal */
-  --light-bg-primary: #f9f7f5;       /* Fondo principal suave */
-  --light-bg-secondary: #f0eae5;     /* Fondo secundario cálido */
-  --light-text-primary: #2d3142;     /* Texto principal - gris azulado oscuro */
-  --light-text-secondary: #5c5f7a;   /* Texto secundario - gris medio con toque púrpura */
-  --light-accent-primary: #3f8efc;   /* Acento primario - azul vibrante */
-  --light-accent-secondary: #4ecdc4; /* Acento secundario - turquesa */
-  --light-accent-tertiary: #ff6b6b;  /* Acento terciario - coral */
-  --light-border: #e0e0e0;           /* Bordes suaves */
+/* Tema Claro - Paleta Oscurecida */
+--light-bg-primary: #f2f2f2;       /* Fondo principal gris claro */
+--light-bg-secondary: #e5e5e5;     /* Fondo secundario gris más oscuro */
+--light-text-primary: #1a1a1a;     /* Texto principal casi negro */
+--light-text-secondary: #4d4d4d;   /* Texto secundario gris oscuro */
+--light-accent-primary: #1e50a0;   /* Acento primario azul oscuro */
+--light-accent-secondary: #008066; /* Acento secundario verde oscuro */
+--light-accent-tertiary: #cc4433;  /* Acento terciario rojo oscuro */
+--light-border: #cccccc;           /* Bordes más definidos */
   
   /* Tema Oscuro - Paleta Principal */
   --dark-bg-primary: #1f2430;        /* Fondo principal - azul oscuro profundo */
@@ -80,6 +80,10 @@ footer{
 
 .nav-link:active {
   color: var(--accent-tertiary);
+}
+
+.navbar-brand svg {
+  color: var(--text-color);
 }
 
 /* Botones */
