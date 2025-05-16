@@ -11,6 +11,7 @@ function NavBar() {
 
       </a>
       <button
+        style={{color: "var(--text-color)"}}
         className="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
@@ -18,9 +19,8 @@ function NavBar() {
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
-      >
-      </button>
-
+      />
+      
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ms-auto">
           <li className="nav-item">
@@ -64,5 +64,4 @@ function NavBar() {
 
   );
 }
-
 export default NavBar;
