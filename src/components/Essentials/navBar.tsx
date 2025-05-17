@@ -45,6 +45,12 @@ function NavBar() {
               </a>
             </li>
             <li className="nav-item">
+              <a className="nav-link d-flex align-items-center" href="/Login">
+                <i className="bi bi-person-plus-fill me-2"></i>
+                Login
+              </a>
+            </li>
+            <li className="nav-item">
               <a className="nav-link d-flex align-items-center" href="/ToDoForm">
                 <i className="bi bi-check2-square me-2"></i>
                 Create New Pending Task

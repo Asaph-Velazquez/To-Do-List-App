@@ -12,11 +12,9 @@ import Footer from './components/Essentials/footer'
 import RForm from './components/Registration/rForm'
 import ToDoForm from './components/ToDo/ToDoForm'
 import ToDoList from './components/ToDo/ToDoList'
-
+import Login from './components/Login/Login'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <NavBar />
@@ -26,6 +24,7 @@ function App() {
         <Route path='/rForm' element={<RForm/>}/>
         <Route path='/ToDoList' element={<ToDoList/>}/>
         <Route path='/ToDoForm' element={<ToDoForm/>}/>
+        <Route path='/Login' element={<Login/>}/>
       </Routes>
       <Footer />
     </>
