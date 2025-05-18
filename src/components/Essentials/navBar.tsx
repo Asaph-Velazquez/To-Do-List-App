@@ -62,6 +62,12 @@ function NavBar() {
                 Pending Tasks List
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link d-flex align-items-center" href="/DbTest">
+                <i className="bi bi-database me-2"></i>
+                Database Test
+              </a>
+            </li>
           </ul>
         </div>
       </div>
