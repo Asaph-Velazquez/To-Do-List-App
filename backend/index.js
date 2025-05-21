@@ -11,11 +11,11 @@ app.use(express.json());
 
 // PostgreSQL connection
 const pool = new Pool({
-  user: "postgres",
+  user: "PutYourUsernameHere",
   host: "localhost",
-  database: "ToDoListApp",
+  database: "PutYourDatabaseNameHere",
   port: 5432,
-  password: "041203",
+  password: "PutYourPasswordHere",
 });
 
 // Example route
@@ -30,31 +30,38 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
+// 1. Agrega el endpoint GET para tasks que coincide con tu frontend
 app.get("/api/tasks", async (req, res) => {
   try {
-    const result = await pool.query("Select * from tasks");
+    const result = await pool.query("SELECT * FROM tasks");
     res.json(result.rows);
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
     res.status(500).send("Database error");
   }
 });
+
+
 app.post("/api/tasks", async (req, res) => {
+  const { userId, taskName, taskDescription, taskDate, taskPriority, taskStatus, taskCategory, taskAttachments } = req.body;
+  
+
+  if (!userId || !taskName || !taskDescription || !taskDate || !taskPriority || !taskStatus) {
+    return res.status(400).json({ error: "Los campos userId, taskName, taskDescription, taskDate, taskPriority y taskStatus son requeridos" });
+  }
+
   try {
     const result = await pool.query(
-      "insert into tasks (taskname, description, dueDate, priority, status) values ($1, $2, $3, $4, $5)",
-      [
-        req.body.taskname,
-        req.body.description,
-        req.body.dueDate,
-        req.body.priority,
-        req.body.status,
-      ]
+      `INSERT INTO tasks (userId, taskName, taskDescription, taskDate, taskPriority, taskStatus, taskCategory, taskAttachments) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+       RETURNING *`,
+      [userId, taskName, taskDescription, taskDate, taskPriority, taskStatus, taskCategory, taskAttachments]
     );
-    res.json(result.rows[0]);
+    
+    res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
-    res.status(500).send("Database error");
+    res.status(500).json({ error: "Error al crear la tarea" });
   }
 });
 
