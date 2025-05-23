@@ -1,6 +1,8 @@
 Create table Users(
 	userId serial primary key,
 	
+	firstName varchar(50),
+	lastName varchar(50),
 	userName varchar(50) unique,
 	userEmail varchar(50) unique,
 	userPassword varchar(50)
