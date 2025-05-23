@@ -72,9 +72,9 @@ function ToDohtmlForm() {
             <label htmlFor="FormPriority" className="form-label">Priority</label>
             <select className="form-control" id="FormPriority" ref={taskPriorityInfo} required>
               <option value="">Select priority</option>
-              <option value="Alta">Alta</option>
-              <option value="Media">Media</option>
-              <option value="Baja">Baja</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
             </select>
           </div>
 
@@ -83,16 +83,16 @@ function ToDohtmlForm() {
             <label htmlFor="FormStatus" className="form-label">Status</label>
             <select className="form-control" id="FormStatus" ref={taskStatusInfo} required>
               <option value="">Select status</option>
-              <option value="Pendiente">Pendiente</option>
-              <option value="En progreso">En progreso</option>
-              <option value="Completada">Completada</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
 
           {/* Category */}
           <div className="col-md-4 mb-3">
             <label htmlFor="FormCategory" className="form-label">Category</label>
-            <input type="text" className="form-control" id="FormCategory" ref={taskCategoryInfo} placeholder="Trabajo, Personal, Estudios..." />
+            <input type="text" className="form-control" id="FormCategory" ref={taskCategoryInfo} placeholder="Work, Personal, Studies..." />
           </div>
 
           <div className="col-md-4 mb-3"></div>
@@ -104,8 +104,8 @@ function ToDohtmlForm() {
         </div>
 
         {/* Submit */}
-        <div className="mt-3 d-flex justify-content-center">
-          <button type="submit" className="btn btn-primary">Submit</button>
+        <div className="mt-2 d-flex justify-content-center" style={{textAlign: "center", alignContent: "center"}}>
+          <button type="submit" className="btn btn-primary" >Submit</button>
         </div>
       </form>
     </main>
