@@ -11,17 +11,51 @@ app.use(express.json());
 
 // PostgreSQL connection
 const pool = new Pool({
-  user: "PutYourUsernameHere",
+  user: "postgres",
   host: "localhost",
-  database: "PutYourDatabaseNameHere",
+  database: "ToDoListApp",
   port: 5432,
-  password: "PutYourPasswordHere",
+  password: "041203",
 });
+
+
+app.post("/api/users", async (req, res) => {
+  const { username, password, email, firstName, lastName } = req.body;
+
+  if (!username || !password || !email || !firstName || !lastName) {
+    return res.status(400).json({ error: "Fields username, password, email, firstName and lastName are required" });
+  }
+
+  try {
+    // Check if username or email already exists
+    const existingUser = await pool.query(
+      "SELECT * FROM Users WHERE userName = $1 OR userEmail = $2",
+      [username, email]
+    );
+
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: "Username or email already exists" });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO Users (userName, userEmail, userPassword, firstName, lastName) 
+       VALUES ($1, $2, $3, $4, $5) 
+       RETURNING *`,
+      [username, email, password, firstName, lastName]
+    );
+  
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error creating user" });
+  }
+});
+    
 
 // Example route
 app.get("/api/data", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM users");
+    const result = await pool.query("SELECT * FROM Users");
     res.json(result.rows);
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
@@ -30,7 +64,79 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
-// 1. Agrega el endpoint GET para tasks que coincide con tu frontend
+// Get user by ID
+app.get("/api/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query("SELECT * FROM Users WHERE userId = $1", [id]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error fetching user" });
+  }
+});
+
+// Update user
+app.put("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { username, email, firstName, lastName } = req.body;
+
+  try {
+    // Check if username or email already exists for other users
+    const existingUser = await pool.query(
+      "SELECT * FROM Users WHERE (userName = $1 OR userEmail = $2) AND userId != $3",
+      [username, email, id]
+    );
+
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: "Username or email already exists" });
+    }
+
+    const result = await pool.query(
+      `UPDATE Users 
+       SET userName = $1, userEmail = $2, firstName = $3, lastName = $4
+       WHERE userId = $5
+       RETURNING *`,
+      [username, email, firstName, lastName, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error updating user" });
+  }
+});
+
+// Delete user
+app.delete("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      "DELETE FROM Users WHERE userId = $1 RETURNING *",
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error deleting user" });
+  }
+});
+
 app.get("/api/tasks", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM tasks");
@@ -47,7 +153,7 @@ app.post("/api/tasks", async (req, res) => {
   
 
   if (!userId || !taskName || !taskDescription || !taskDate || !taskPriority || !taskStatus) {
-    return res.status(400).json({ error: "Los campos userId, taskName, taskDescription, taskDate, taskPriority y taskStatus son requeridos" });
+    return res.status(400).json({ error: "Fields userId, taskName, taskDescription, taskDate, taskPriority and taskStatus are required" });
   }
 
   try {
@@ -61,7 +167,7 @@ app.post("/api/tasks", async (req, res) => {
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
-    res.status(500).json({ error: "Error al crear la tarea" });
+    res.status(500).json({ error: "Error creating task" });
   }
 });
 
