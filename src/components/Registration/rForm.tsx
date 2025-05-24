@@ -190,7 +190,7 @@ function rForm() {
           </div>
         </div>
 
-        <div className="col-12">
+        <div className="col-12 d-flex justify-content-center">
           <button className="btn btn-primary" type="submit">
             Submit form
           </button>

@@ -39,8 +39,8 @@ function Login() {
                 placeholder=""
               ></input>
             </div>
-            <button type="submit" className="btn btn-primary w-100">
-              Input
+            <button type="submit" className="btn btn-primary w-100 d-flex justify-content-center">
+                Login
             </button>
           </form>
         </div>

@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function NavBar() {
+
+  const [isHovered, setIsHovered] = useState(true);
+
   return (
     <div className="container mt-4">
       <nav
@@ -20,7 +25,7 @@ function NavBar() {
             </svg>
           </a>
           <button
-            style={{ color: "var(--text-color)" }}
+            style={{ color: "var(--text-color)" , backgroundColor: isHovered ? "blue" : "transparent"}}
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -28,7 +33,10 @@ function NavBar() {
             aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
-          />
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(true)}
+          >
+          </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
