@@ -5,7 +5,7 @@ function ToDoList() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/tasks")
+    axios.get("/api/tasks")
       .then(response => setTasks(response.data))
       .catch(error => console.error("Error fetching tasks:", error));
   }, []);

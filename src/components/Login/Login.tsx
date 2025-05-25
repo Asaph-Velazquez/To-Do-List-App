@@ -1,9 +1,10 @@
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios  from "axios";
 
 function Login() {
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const userNameInfo = useRef<HTMLInputElement>(null);
     const passwordInfo = useRef<HTMLInputElement>(null);
@@ -34,6 +35,8 @@ function Login() {
 
       if(userData){
         console.log("Login successful", userData);
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true");
         navigate("/");
       }else{
         console.log("Login failed");
@@ -92,5 +95,4 @@ function Login() {
       </div>
     );
   }
-  
   export default Login;
