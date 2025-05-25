@@ -6,6 +6,7 @@ import './App.css'
 import './index.css'
 
 {/*Componetns imports*/}
+import PrivateRoutes from './components/Essentials/PrivateRoutes'
 import HomePage from './components/HomePage'
 import NavBar from './components/Essentials/navBar'
 import Footer from './components/Essentials/footer'
@@ -22,8 +23,8 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='*' element={<HomePage />} />
         <Route path='/rForm' element={<RForm/>}/>
-        <Route path='/ToDoList' element={<ToDoList/>}/>
-        <Route path='/ToDoForm' element={<ToDoForm/>}/>
+        <Route path='/ToDoList' element={<PrivateRoutes><ToDoList/></PrivateRoutes>}/>
+        <Route path='/ToDoForm' element={<PrivateRoutes><ToDoForm/></PrivateRoutes>}/>
         <Route path='/Login' element={<Login/>}/>
       </Routes>
       <Footer />
