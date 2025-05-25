@@ -20,17 +20,17 @@ function rForm() {
 
   // Validation regex
   const Regex = {
-    username: /^[a-zA-Z0-9]{3,20}$/,
-    password: /^[a-zA-Z0-9]{8,20}$/,
+    username: /^[a-zA-Z0-9\s]{3,40}$/,
+    password: /^[a-zA-Z0-9#$%&@!()_/-/*+-]{8,}$/,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    firstName: /^[a-zA-Z]{3,20}$/,
-    lastName: /^[a-zA-Z]{3,20}$/
+    firstName: /^[a-zA-Z\s]{3,20}$/,
+    lastName: /^[a-zA-Z\s]{3,20}$/
   };
 
   // Validation messages
   const validationMessages = {
-    username: 'Username must be 3-20 characters long and contain only letters and numbers',
-    password: 'Password must be 8-20 characters long and contain only letters and numbers',
+    username: 'Username must be 3-40 characters long and contain only letters and numbers',
+    password: 'Password must be more than 8 characters',
     email: 'Please enter a valid email address',
     firstName: 'First name must be 3-20 characters long and contain only letters',
     lastName: 'Last name must be 3-20 characters long and contain only letters'
