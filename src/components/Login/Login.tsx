@@ -37,6 +37,7 @@ function Login() {
         console.log("Login successful", userData);
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userID", userData.user.userid);
         navigate("/");
       }else{
         console.log("Login failed");
