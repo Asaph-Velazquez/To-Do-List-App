@@ -159,6 +159,7 @@ function NavBar() {
                       className="nav-link d-flex align-items-center"
                       href="/"
                       onClick={handleLogout}
+                      style={{ color: "red" }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
