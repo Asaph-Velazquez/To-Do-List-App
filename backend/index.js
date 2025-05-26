@@ -162,8 +162,13 @@ app.post("/api/login", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(401).json({ error: "Invalid username, password or email" });
     }
-
-    res.json({ message: "Login successful", user: result.rows[0] });
+    res.json({ 
+      message: "Login successful", 
+      user: {
+        id: result.rows[0].userid,  // Asegúrate de que este campo coincide con tu DB
+        ...result.rows[0]
+      } 
+    });
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
     res.status(500).json({ error: "Error logging in" });

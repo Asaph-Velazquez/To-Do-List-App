@@ -3,12 +3,13 @@ import axios from "axios";
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
+  const userID = localStorage.getItem("userID");
 
   useEffect(() => {
-    axios.get("/api/tasks")
+    axios.get(`/api/tasks?userId=${userID}`)
       .then(response => setTasks(response.data))
       .catch(error => console.error("Error fetching tasks:", error));
-  }, []);
+  }, [userID]);
 
   return (
     <main className="container" style={{ textAlign: "center", padding: "2rem" }}>
