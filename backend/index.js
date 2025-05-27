@@ -178,7 +178,8 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/tasks", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM tasks");
+    const { userId } = req.query;
+    const result = await pool.query("SELECT * FROM tasks WHERE userId = $1", [userId] );
     res.json(result.rows);
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);

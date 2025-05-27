@@ -4,6 +4,7 @@ import axios from "axios";
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
   const userID = localStorage.getItem("userID");
+  console.log(userID);
 
   useEffect(() => {
     axios.get(`/api/tasks?userId=${userID}`)
