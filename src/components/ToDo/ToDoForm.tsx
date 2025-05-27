@@ -12,8 +12,10 @@ function ToDohtmlForm() {
 
   const [tasks, setTasks] = useState([]);
 
+  const userData = localStorage.getItem("userID");
+
   useEffect(() => {
-    axios.get("/api/tasks")
+    axios.get(`/api/tasks?userId=${userData}`)
       .then(response => setTasks(response.data))
       .catch(error => console.error("Error fetching tasks:", error));
   }, []);
@@ -21,7 +23,7 @@ function ToDohtmlForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const taskData = {
-      userId: 1,
+      userId: userData,
       taskName: taskNameInfo?.current?.value,
       taskDescription: descriptionInfo?.current?.value,
       taskDate: taskDateInfo?.current?.value,
