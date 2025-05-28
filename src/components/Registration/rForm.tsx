@@ -185,7 +185,7 @@ function rForm() {
               required
             />
             <label className="form-check-label" htmlFor="termsCheck">
-              Agree to terms and conditions
+              Agree to terms and conditions 
             </label>
           </div>
         </div>

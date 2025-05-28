@@ -12,7 +12,6 @@ function NavBar() {
     navigate("/");
   }
 
-  console.log(isLoggedIn);
   return (
     <div className="container mt-4">
       <nav
