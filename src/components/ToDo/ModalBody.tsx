@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Task {
-    taskID: number;
-    taskName: string;
-    taskDescription: string;
-    taskDate: string;
-    taskPriority: string;
-    taskStatus: string;
-    taskCategory: string;
-    taskAttachments: string;
+    taskid: number;
+    taskname: string;
+    taskdescription: string;
+    taskdate: string;
+    taskpriority: string;
+    taskstatus: string;
+    taskcategory: string;
+    taskattachments: string;
 }
 
 interface ModalBodyProps {
@@ -20,29 +20,32 @@ function ModalBody({ taskId }: ModalBodyProps) {
     const [task, setTask] = useState<Task | null>(null);
 
     useEffect(() => {
+      console.log("Fetching task with ID:", taskId);
       axios.get(`/api/tasks/${taskId}`)
         .then(response => {
+            console.log("Response from server:", response.data);
             setTask(response.data);
-            console.log(response.data);
         })
-        .catch(error => console.error("Error fetching tasks:", error));
+        .catch(error => {
+            console.error("Error fetching task:", error);
+            console.error("Error details:", error.response?.data);
+        });
     }, [taskId]);
     
-    if (!task) return <div>Downloading...</div>;
+    if (!task) return <div>Loading...</div>;
     
     return (
       <main>
         <div className="container">
           <div>
-            <h1>{task.taskName}</h1>
-            <p>{task.taskDescription}</p>
+            <p>{task.taskdescription}</p>
             <div className="task-details">
-              <p><strong>Fecha:</strong> {task.taskDate}</p>
-              <p><strong>Prioridad:</strong> {task.taskPriority}</p>
-              <p><strong>Estado:</strong> {task.taskStatus}</p>
-              <p><strong>Categoría:</strong> {task.taskCategory}</p>
-              {task.taskAttachments && (
-                <p><strong>Adjuntos:</strong> {task.taskAttachments}</p>
+              <p><strong>Date:</strong> {task.taskdate}</p>
+              <p><strong>Priority:</strong> {task.taskpriority}</p>
+              <p><strong>Status:</strong> {task.taskstatus}</p>
+              <p><strong>Category:</strong> {task.taskcategory}</p>
+              {task.taskattachments && (
+                <p><strong>Attachments:</strong> {task.taskattachments}</p>
               )}
             </div>
           </div>

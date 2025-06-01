@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import ModalBody from "./ModalBody";
+
+interface Task {
+  taskid: number;
+  taskname: string;
+  taskdescription: string;
+}
+
 function ToDoList() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const userID = localStorage.getItem("userID");
   console.log(userID);
 
@@ -12,10 +21,12 @@ function ToDoList() {
       .catch(error => console.error("Error fetching tasks:", error));
   }, [userID]);
 
+  console.log("Task ID: " +selectedTask?.taskid)
+  console.log(tasks);
   return (
     <main className="container" style={{ textAlign: "center", padding: "2rem" }}>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        {tasks.map((task: any) => (
+        {tasks.map((task: Task) => (
           <div className="col" key={task.taskid}>
             <div
               className="card h-100"
@@ -39,6 +50,7 @@ function ToDoList() {
                   }}
                   data-bs-toggle="modal"
                   data-bs-target="#modalActivation"
+                  onClick={() => setSelectedTask(task)}
                 >
                   Task Details
                 </button>
@@ -59,7 +71,7 @@ function ToDoList() {
           >
             <div className="modal-header border-secondary">
               <h1 className="modal-title fs-5" id="modalActivationLabel">
-                Modal title
+                {selectedTask?.taskname}
               </h1>
               <button
                 type="button"
@@ -68,7 +80,9 @@ function ToDoList() {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+              {selectedTask?.taskid && <ModalBody taskId={selectedTask.taskid}/>}
+            </div>
             <div className="modal-footer border-secondary">
               <button
                 type="button"

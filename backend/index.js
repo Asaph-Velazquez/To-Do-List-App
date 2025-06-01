@@ -146,6 +146,7 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+// Login user
 app.post("/api/login", async (req, res) => {
   const { userName, password, email } = req.body;
 
@@ -165,7 +166,7 @@ app.post("/api/login", async (req, res) => {
     res.json({ 
       message: "Login successful", 
       user: {
-        id: result.rows[0].userid,  // Asegúrate de que este campo coincide con tu DB
+        id: result.rows[0].userid, 
         ...result.rows[0]
       } 
     });
@@ -175,7 +176,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-
+//Task Query To Do List
 app.get("/api/tasks", async (req, res) => {
   try {
     const { userId } = req.query;
@@ -184,6 +185,29 @@ app.get("/api/tasks", async (req, res) => {
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
     res.status(500).send("Database error");
+  }
+});
+
+
+//Task Query By ID for Modal Body
+app.get("/api/tasks/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("Fetching task with ID:", id);
+    
+    const result = await pool.query("SELECT * FROM tasks WHERE taskid = $1", [id]);
+    console.log("Query result:", result.rows);
+    
+    if (result.rows.length === 0) {
+      console.log("No task found with ID:", id);
+      return res.status(404).json({ error: "Task not found" });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    console.error("Query parameters:", { id: req.params.id });
+    res.status(500).json({ error: "Error fetching task" });
   }
 });
 
