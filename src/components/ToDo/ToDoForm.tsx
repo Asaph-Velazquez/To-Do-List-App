@@ -14,6 +14,9 @@ function ToDohtmlForm() {
 
   const userData = localStorage.getItem("userID");
 
+  //Alert
+  const [alert, setAlert] = useState<{type: string, message: string}|null>(null);
+
   useEffect(() => {
     axios.get(`/api/tasks?userId=${userData}`)
       .then(response => setTasks(response.data))
@@ -40,10 +43,42 @@ function ToDohtmlForm() {
         axios.get("/api/tasks")
           .then(response => setTasks(response.data))
           .catch(error => console.error("Error fetching tasks:", error));
+        setAlert({
+          type: "success",
+          message: "Task created successfully!"
+        });
       })
       .catch(error => {
         console.error("Error creating task:", error);
+        setAlert({
+          type: "danger",
+          message: "Error creating task please try again!"
+        });
       });
+
+
+      //Clear form
+      if (taskNameInfo.current) {
+        taskNameInfo.current.value = "";
+      }
+      if (descriptionInfo.current) {
+        descriptionInfo.current.value = "";
+      }
+      if (taskDateInfo.current) {
+        taskDateInfo.current.value = "";
+      }
+      if (taskPriorityInfo.current) {
+        taskPriorityInfo.current.value = "";
+      }
+      if (taskStatusInfo.current) {
+        taskStatusInfo.current.value = "";
+      }
+      if (taskCategoryInfo.current) {
+        taskCategoryInfo.current.value = "";
+      }
+
+      //Clear alert
+      setAlert(null);
   }
   return (
     <div className="container-fluid py-3 py-md-4">
@@ -186,6 +221,13 @@ function ToDohtmlForm() {
                       <i className="bi bi-check-circle-fill me-2"></i>
                       Create Task
                     </button>
+                    <br />
+                    <br />
+                    {alert && (
+                      <div className={`alert alert-${alert.type} text-center`} role="alert">
+                        {alert.message}
+                      </div>
+                    )}
                   </div>
                 </div>
               </form>
