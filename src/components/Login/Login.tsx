@@ -10,6 +10,9 @@ function Login() {
     const passwordInfo = useRef<HTMLInputElement>(null);
     const emailInfo = useRef<HTMLInputElement>(null);
 
+    //alert
+    const [alert, setAlert]= useState<{type: string, message: string}|null>(null);
+
     const LoginRequest = async () =>{    
 
       const FormData ={
@@ -38,9 +41,17 @@ function Login() {
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userID", userData.user.userid);
+        setAlert({
+          type: "success",
+          message: "Login successful"
+        });
         navigate("/");
       }else{
         console.log("Login failed");
+        setAlert({
+          type: "danger",
+          message: "Login failed"
+        });
         navigate("/login");
       }
     }
@@ -91,6 +102,12 @@ function Login() {
             <button type="submit" className="btn btn-primary w-100 d-flex justify-content-center">
                 Login
             </button>
+            <br />
+            {alert && (
+              <div className={`alert alert-${alert.type} text-center`} role="alert">
+                {alert.message}
+              </div>
+            )}
           </form>
         </div>
       </div>

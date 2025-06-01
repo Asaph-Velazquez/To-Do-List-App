@@ -1,13 +1,18 @@
 import { useState, useEffect, useRef} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios"
 
 function rForm() {
+  const navigate = useNavigate();
   // Form refs
   const userNameInfo = useRef<HTMLInputElement>(null);
   const passwordInfo = useRef<HTMLInputElement>(null);
   const emailInfo = useRef<HTMLInputElement>(null);
   const firstNameInfo = useRef<HTMLInputElement>(null);
   const lastNameInfo = useRef<HTMLInputElement>(null);
+
+  //Alert
+  const [alert, setAlert] = useState<{type: string, message: string}|null>(null);
 
   // Validation states
   const [validationErrors, setValidationErrors] = useState({
@@ -76,9 +81,18 @@ function rForm() {
       try {
         const response = await axios.post("/api/users", formData);
         console.log("User registered successfully:", response.data);
+        setAlert({
+          type: "success",
+          message: "User registered successfully!"
+        })
+        navigate("/login");
         // Handle successful registration (e.g., redirect to login)
       } catch (error) {
         console.error("Error registering user:", error);
+        setAlert({
+          type: "danger",
+          message: "Error registering user please try again!"
+        }); 
         // Handle registration error
       }
     }
@@ -196,6 +210,12 @@ function rForm() {
             <button className="btn btn-primary w-100 d-flex justify-content-center" type="submit">
               Register
             </button>
+            <br />
+            {alert && (
+              <div className={`alert alert-${alert.type} text-center`} role="alert">
+                {alert.message}
+              </div>
+            )}
           </div>
         </form>
       </div>
