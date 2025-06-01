@@ -15,7 +15,7 @@ const pool = new Pool({
   host: "localhost",
   database: "ToDoListApp",
   port: 5432,
-  password: "041203",
+  password: "080303",
 });
 
 app.post("/api/users", async (req, res) => {
