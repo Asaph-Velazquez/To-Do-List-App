@@ -83,119 +83,122 @@ function rForm() {
       }
     }
   };
-
   return (
-    <div className="container center">
-      <form className="row g-3" onSubmit={handleSubmit}>
-        <div className="col-md-12">
-          <label htmlFor="validationServerUsername" className="form-label d-flex justify-content-center">
-            Username
-          </label>
-          <div className="input-group has-validation">
+    <div className="container d-flex justify-content-center">
+      <div className="card p-4" style={{ width: "700px", maxWidth: "90vw" }}>
+        <h2 className="text-center mb-4">REGISTER</h2>
+        <form className="row g-3" onSubmit={handleSubmit}>
+          <div className="col-md-12">
+            <label htmlFor="validationServerUsername" className="form-label">
+              Username
+            </label>
             <input
               ref={userNameInfo}
               type="text"
               className={`form-control ${validationErrors.username ? 'is-invalid' : 'is-valid'}`}
               id="validationServerUsername"
               onChange={(e) => handleInputChange('username', e.target.value)}
+              placeholder="Enter your username"
               required
             />
             {validationErrors.username && (
               <div className="invalid-feedback">{validationErrors.username}</div>
             )}
           </div>
-        </div>
-
-        <div className="col-md-6">
-          <label htmlFor="validationServer01" className="form-label d-flex justify-content-center">
-            First name
-          </label>
-          <input
-            ref={firstNameInfo}
-            type="text"
-            className={`form-control ${validationErrors.firstName ? 'is-invalid' : 'is-valid'}`}
-            id="validationServer01"
-            onChange={(e) => handleInputChange('firstName', e.target.value)}
-            required
-          />
-          {validationErrors.firstName && (
-            <div className="invalid-feedback">{validationErrors.firstName}</div>
-          )}
-        </div>
-
-        <div className="col-md-6">
-          <label htmlFor="validationServer02" className="form-label d-flex justify-content-center">
-            Last name
-          </label>
-          <input
-            ref={lastNameInfo}
-            type="text"
-            className={`form-control ${validationErrors.lastName ? 'is-invalid' : 'is-valid'}`}
-            id="validationServer02"
-            onChange={(e) => handleInputChange('lastName', e.target.value)}
-            required
-          />
-          {validationErrors.lastName && (
-            <div className="invalid-feedback">{validationErrors.lastName}</div>
-          )}
-        </div>
-
-        <div className="col-md-6">
-          <label htmlFor="validationServerMail" className="form-label d-flex justify-content-center">
-            Email
-          </label>
-          <div className="input-group has-validation">
+  
+          <div className="col-md-6">
+            <label htmlFor="validationServer01" className="form-label">
+              First name
+            </label>
+            <input
+              ref={firstNameInfo}
+              type="text"
+              className={`form-control ${validationErrors.firstName ? 'is-invalid' : 'is-valid'}`}
+              id="validationServer01"
+              onChange={(e) => handleInputChange('firstName', e.target.value)}
+              placeholder="First name"
+              required
+            />
+            {validationErrors.firstName && (
+              <div className="invalid-feedback">{validationErrors.firstName}</div>
+            )}
+          </div>
+  
+          <div className="col-md-6">
+            <label htmlFor="validationServer02" className="form-label">
+              Last name
+            </label>
+            <input
+              ref={lastNameInfo}
+              type="text"
+              className={`form-control ${validationErrors.lastName ? 'is-invalid' : 'is-valid'}`}
+              id="validationServer02"
+              onChange={(e) => handleInputChange('lastName', e.target.value)}
+              placeholder="Last name"
+              required
+            />
+            {validationErrors.lastName && (
+              <div className="invalid-feedback">{validationErrors.lastName}</div>
+            )}
+          </div>
+  
+          <div className="col-md-6">
+            <label htmlFor="validationServerMail" className="form-label">
+              Email
+            </label>
             <input
               ref={emailInfo}
               type="email"
               className={`form-control ${validationErrors.email ? 'is-invalid' : 'is-valid'}`}
               id="validationServerMail"
               onChange={(e) => handleInputChange('email', e.target.value)}
+              placeholder="user@gmail.com"
               required
             />
             {validationErrors.email && (
               <div className="invalid-feedback">{validationErrors.email}</div>
             )}
           </div>
-        </div>
-
-        <div className="col-md-6">
-          <label htmlFor="validationServerPassword" className="form-label d-flex justify-content-center">
-            Password
-          </label>
-          <input
-            ref={passwordInfo}
-            type="password"
-            className={`form-control ${validationErrors.password ? 'is-invalid' : 'is-valid'}`}
-            id="validationServerPassword"
-            onChange={(e) => handleInputChange('password', e.target.value)}
-            required
-          />
-          {validationErrors.password && (
-            <div className="invalid-feedback">{validationErrors.password}</div>
-          )}
-        </div>
-
-        <div className="col-12">
-          <div className="form-check">
+  
+          <div className="col-md-6">
+            <label htmlFor="validationServerPassword" className="form-label">
+              Password
+            </label>
             <input
-              className="form-check-input"
-              type="checkbox"
-              id="termsCheck"
+              ref={passwordInfo}
+              type="password"
+              className={`form-control ${validationErrors.password ? 'is-invalid' : 'is-valid'}`}
+              id="validationServerPassword"
+              onChange={(e) => handleInputChange('password', e.target.value)}
+              placeholder="Enter password"
               required
             />
-            <label className="form-check-label" htmlFor="termsCheck">
-              Agree to terms and conditions 
-            </label>
+            {validationErrors.password && (
+              <div className="invalid-feedback">{validationErrors.password}</div>
+            )}
           </div>
-        </div>
-
-        <div className="col-12 d-flex justify-content-center">
-          <button className="btn btn-primary" type="submit">
-            Submit form
-          </button>
-        </div>
-      </form>
+  
+          <div className="col-12">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="termsCheck"
+                required
+              />
+              <label className="form-check-label" htmlFor="termsCheck">
+                Agree to terms and conditions 
+              </label>
+            </div>
+          </div>
+  
+          <div className="col-12">
+            <button className="btn btn-primary w-100 d-flex justify-content-center" type="submit">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
