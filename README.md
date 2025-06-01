@@ -1,55 +1,119 @@
-# React + TypeScript + Vite
+# 📝 To-Do List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-Currently, two official plugins are available:
+A modern task management application built with React, Vite, TypeScript, and Bootstrap.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- ✅ Add, edit, and delete tasks
+- ✔️ Mark tasks as complete
+- 🔍 Filter tasks (all, active, completed)
+- 🌙 Light/dark mode toggle (using Bootstrap's color modes)
+- 📱 Fully responsive design (powered by Bootstrap's grid system)
+- 🎨 Clean UI with Bootstrap components and utilities
+- ⚡ Fast performance with Vite
+- 🔒 Local storage persistence
+- 👤 User authentication and registration
+- 🔐 Secure password handling
+- 📧 Email validation
+- 🎯 Form validation with real-time feedback
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Frontend**: React 18
+- **Bundler**: Vite
+- **Styling**: Bootstrap 5 + Custom SCSS
+- **Icons**: [Bootstrap Icons](https://icons.getbootstrap.com/)
+- **Component Library**: React-Bootstrap
+- **State Management**: React Context API
+- **Type Checking**: TypeScript
+- **HTTP Client**: Axios
+- **Routing**: React Router DOM
+- **Form Validation**: Custom regex patterns
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── Registration/
+│   ├── Login/
+│   └── Tasks/
+├── contexts/
+├── hooks/
+├── services/
+├── types/
+└── utils/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- Node.js v16 or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Asaph-Velazquez/To-Do-List-App.git
 ```
-# To-Do-List-App
+2. Navigate to the project directory:
+```bash
+cd To-Do-List-App
+```
+3. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+4. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+5. Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+
+## 📝 Code Style
+
+- ESLint configuration for code quality
+- Prettier for code formatting
+- TypeScript strict mode enabled
+- Component-based architecture
+- Custom hooks for reusable logic
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 👥 Authors
+
+- **Asaph Velazquez** - *Initial work*
+- **Alanis Reyes** - *Initial work*
+- **Omar Aguilar** - *Initial work*
+
+## 🙏 Acknowledgments
+
+- React team for the amazing framework
+- Vite team for the blazing fast build tool
+- Bootstrap team for the UI components
+- All contributors who have helped with the project
