@@ -252,3 +252,73 @@ app.get("/api/Administrators/", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
+
+// Botton Eliminate Tasks
+
+app.delete("/api/delete/:taskid", async (req, res) => {
+  const { taskid } = req.params;
+  
+  // Validación de ID
+  if (!taskid || isNaN(taskid)) {
+    return res.status(400).json({ error: "Invalid task ID" });
+  }
+
+  try {
+    const result = await db.query("DELETE FROM tasks WHERE taskid = ?", [taskid]);
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    
+    res.status(200).json({ 
+      success: true,
+      message: "Task successfully deleted.",
+      taskid: taskid
+    });
+  } catch (error) {
+    console.error("Delete task error:", error);
+    res.status(500).json({ 
+      error: "Error deleting task",
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+
+// Botton Update Tasks
+
+app.put("/api/update/:taskid", async (req, res) => {
+  const { taskid } = req.params;
+  const { taskName, taskDescription, taskDate, taskPriority, taskStatus } = req.body;
+
+
+  if (!taskid || isNaN(taskid)) {
+    return res.status(400).json({ error: "Invalid task ID" });
+  }
+
+  try {
+    const result = await pool.query(
+      `UPDATE tasks 
+       SET taskname = $1, 
+           taskdescription = $2, 
+           taskdate = $3, 
+           taskpriority = $4, 
+           taskstatus = $5,
+       WHERE taskid = $6 
+       RETURNING *`,
+      [taskName, taskDescription, taskDate, taskPriority, taskStatus, taskid]
+    );
+
+    res.json({
+      success: true,
+      task: result.rows[0]
+    });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ 
+      error: "Error updating task",
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+  }
+});
