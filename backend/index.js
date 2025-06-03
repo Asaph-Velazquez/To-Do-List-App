@@ -146,6 +146,10 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+// Login user
+=======
+>>>>>>> c85c5e1cbe1bcdda0c5de52438167d56ac4a814b
 app.post("/api/login", async (req, res) => {
   const { userName, password, email } = req.body;
 
@@ -165,7 +169,11 @@ app.post("/api/login", async (req, res) => {
     res.json({ 
       message: "Login successful", 
       user: {
+<<<<<<< HEAD
+        id: result.rows[0].userid, 
+=======
         id: result.rows[0].userid,  // Asegúrate de que este campo coincide con tu DB
+>>>>>>> c85c5e1cbe1bcdda0c5de52438167d56ac4a814b
         ...result.rows[0]
       } 
     });
@@ -175,7 +183,11 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+//Task Query To Do List
+=======
 
+>>>>>>> c85c5e1cbe1bcdda0c5de52438167d56ac4a814b
 app.get("/api/tasks", async (req, res) => {
   try {
     const { userId } = req.query;
@@ -187,6 +199,32 @@ app.get("/api/tasks", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+
+//Task Query By ID for Modal Body
+app.get("/api/tasks/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("Fetching task with ID:", id);
+    
+    const result = await pool.query("SELECT * FROM tasks WHERE taskid = $1", [id]);
+    console.log("Query result:", result.rows);
+    
+    if (result.rows.length === 0) {
+      console.log("No task found with ID:", id);
+      return res.status(404).json({ error: "Task not found" });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    console.error("Query parameters:", { id: req.params.id });
+    res.status(500).json({ error: "Error fetching task" });
+  }
+});
+
+=======
+>>>>>>> c85c5e1cbe1bcdda0c5de52438167d56ac4a814b
 app.post("/api/tasks", async (req, res) => {
   const {
     userId,
