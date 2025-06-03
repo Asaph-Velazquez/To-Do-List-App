@@ -33,7 +33,7 @@ function ModalBody({ taskId }: ModalBodyProps) {
     }, [taskId]);
     
     if (!task) return <div>Loading...</div>;
-    
+     
     return (
       <main>
         <div className="container">
