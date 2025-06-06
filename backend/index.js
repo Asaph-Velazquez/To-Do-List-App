@@ -263,6 +263,26 @@ app.post("/api/tasks", async (req, res) => {
   }
 });
 
+
+//Task Edit  PROTOTYPE, NOT FINISH YET
+app.put("/api/tasks/:taskId", async (req, res) =>{
+  const taskId = req.params.taskId;
+  const { taskName, taskDescription, taskDate, taskPriority, taskStatus, taskCategory, taskAttachments } = req.body;
+  if (!taskId || !taskName || !taskDescription || !taskDate || !taskPriority || !taskStatus || !taskCategory || !taskAttachments) {
+    return res.status(400).json({ error: "Fields are required" });
+  }
+  try {
+    const result = await pool.query(
+      `UPDATE tasks SET taskName = $1, taskDescription = $2, taskDate = $3, taskPriority = $4, taskStatus = $5, taskCategory = $6, taskAttachments = $7 WHERE taskId = $8 RETURNING *`,
+      [taskName, taskDescription, taskDate, taskPriority, taskStatus, taskCategory, taskAttachments, taskId]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error updating task" });
+  }
+});
+
 app.get("/api/Administrators/", async (req, res) => {
   try {
     const result = await pool.query("Select * from Administrators");

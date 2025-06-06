@@ -14,6 +14,7 @@ import RForm from './components/Registration/rForm'
 import ToDoForm from './components/ToDo/ToDoForm'
 import ToDoList from './components/ToDo/ToDoList'
 import Login from './components/Login/Login'
+import TaskEdit from './components/ToDo/TaskEdit'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/rForm' element={<RForm/>}/>
         <Route path='/ToDoList' element={<PrivateRoutes><ToDoList/></PrivateRoutes>}/>
         <Route path='/ToDoForm' element={<PrivateRoutes><ToDoForm/></PrivateRoutes>}/>
+        <Route path='/TaskEdit' element={<PrivateRoutes><TaskEdit/></PrivateRoutes>}/>
         <Route path='/Login' element={<Login/>}/>
       </Routes>
       <Footer />
