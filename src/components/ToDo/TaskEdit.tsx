@@ -12,14 +12,18 @@ function taskEdit(){
   
     const [tasks, setTasks] = useState([]);
 
-    const userData = localStorage.getItem("userID");
+    const taskData = localStorage.getItem("taskID")
+    console.log(taskData);
+
 
     //Alert
     const [alert, setAlert] = useState<{type: string, message: string}|null>(null);
 
     useEffect(()=>{
-      axios.get()
-    },[]);
+      axios.get(`/api/tasks?taskid=${taskData}`)
+      .then((response) => setTasks(response.data))
+      .catch((error) => console.error("Error fetching tasks:", error));
+    },[taskData]);
 
     return(
         <div className="container-fluid py-3 py-md-4">
@@ -35,7 +39,7 @@ function taskEdit(){
               </div>
               
               <div className="card-body p-3 p-md-4">
-                <form onSubmit={handleSubmit}>
+                <form >
                   <div className="row g-3">
                     {/* Task Name */}
                     <div className="col-12 col-md-6">

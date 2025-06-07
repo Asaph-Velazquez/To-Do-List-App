@@ -31,7 +31,12 @@ function ModalBody({ taskId }: ModalBodyProps) {
             console.error("Error details:", error.response?.data);
         });
     }, [taskId]);
-    
+    const taskData = task?.taskid || "No task found";
+
+    localStorage.setItem("taskID", JSON.stringify(taskData));
+
+    console.log(taskData);
+
     if (!task) return <div>Loading...</div>;
      
     return (
