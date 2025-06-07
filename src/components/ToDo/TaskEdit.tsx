@@ -178,7 +178,6 @@ function taskEdit(){
         </div>
       </div>
     );
-    );
 }
 
 export default taskEdit;
