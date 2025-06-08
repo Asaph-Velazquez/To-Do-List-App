@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
-function taskEdit(){
+function TaskEdit() {
+    // Refs para los campos del formulario
     const taskNameInfo = useRef<HTMLInputElement>(null);
     const descriptionInfo = useRef<HTMLTextAreaElement>(null);
     const taskDateInfo = useRef<HTMLInputElement>(null);
@@ -10,22 +11,78 @@ function taskEdit(){
     const taskCategoryInfo = useRef<HTMLInputElement>(null);
     const taskAttachmentsInfo = useRef<HTMLInputElement>(null);
   
-    const [tasks, setTasks] = useState([]);
+    // Estado para la tarea
+    const [task, setTask] = useState<{
+      taskname: string;
+      taskdescription: string;
+      taskdate: string;
+      taskpriority: string;
+      taskstatus: string;
+      taskcategory: string;
+      taskattachments: string;
+    } | null>(null);
+    
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const taskData = localStorage.getItem("taskID")
-    console.log(taskData);
+    const taskId = localStorage.getItem("taskID");
+    console.log("Task ID:", taskId);
 
-
-    //Alert
+    // Alert
     const [alert, setAlert] = useState<{type: string, message: string}|null>(null);
 
-    useEffect(()=>{
-      axios.get(`/api/tasks?taskid=${taskData}`)
-      .then((response) => setTasks(response.data))
-      .catch((error) => console.error("Error fetching tasks:", error));
-    },[taskData]);
+    useEffect(() => {
+      if (!taskId) {
+        setError("No task ID found");
+        setLoading(false);
+        return;
+      }
 
-    return(
+      const fetchTask = async () => {
+        try {
+          const response = await axios.get(`/api/tasks/${taskId}`);
+          
+          if (response.data) {
+            setTask(response.data);
+            
+            // Formatear la fecha para el input date (si es necesario)
+            const formattedDate = response.data.taskdate 
+              ? new Date(response.data.taskdate).toISOString().split('T')[0]
+              : '';
+            
+            // Asignar valores a los campos del formulario
+            if (taskNameInfo.current) taskNameInfo.current.value = response.data.taskname || '';
+            if (descriptionInfo.current) descriptionInfo.current.value = response.data.taskdescription || '';
+            if (taskDateInfo.current) taskDateInfo.current.value = formattedDate;
+            if (taskPriorityInfo.current) taskPriorityInfo.current.value = response.data.taskpriority || '';
+            if (taskStatusInfo.current) taskStatusInfo.current.value = response.data.taskstatus || '';
+            if (taskCategoryInfo.current) taskCategoryInfo.current.value = response.data.taskcategory || '';
+            if (taskAttachmentsInfo.current) taskAttachmentsInfo.current.value = response.data.taskattachments || '';
+          }
+        } catch (err) {
+          console.error("Error fetching task:", err);
+          setError("Failed to load task data");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchTask();
+    }, [taskId]);
+
+    if (loading) {
+      return <div className="text-center py-5">Loading task data...</div>;
+    }
+
+    if (error) {
+      return <div className="alert alert-danger text-center py-5">{error}</div>;
+    }
+
+    if (!task) {
+      return <div className="alert alert-warning text-center py-5">Task not found</div>;
+    }
+    
+    return (
         <div className="container-fluid py-3 py-md-4">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-6">
@@ -34,12 +91,12 @@ function taskEdit(){
               <div className="card-header bg-primary text-white py-3">
                 <div className="d-flex align-items-center">
                   <i className="bi bi-clipboard-check fs-4 me-3"></i>
-                  <h4 className="mb-0 fw-semibold">Task Details</h4>
+                  <h4 className="mb-0 fw-semibold">Edit Task</h4>
                 </div>
               </div>
               
               <div className="card-body p-3 p-md-4">
-                <form >
+                <form>
                   <div className="row g-3">
                     {/* Task Name */}
                     <div className="col-12 col-md-6">
@@ -51,9 +108,9 @@ function taskEdit(){
                         type="text" 
                         className="form-control border-2" 
                         id="FormTaskName" 
-                        ref={taskNameInfo} 
+                        ref={taskNameInfo}
                         placeholder="Enter task name"
-                        required 
+                        required
                       />
                     </div>
     
@@ -67,7 +124,7 @@ function taskEdit(){
                         type="text" 
                         className="form-control border-2" 
                         id="FormCategory" 
-                        ref={taskCategoryInfo} 
+                        ref={taskCategoryInfo}
                         placeholder="Work, Personal, Studies..."
                       />
                     </div>
@@ -81,7 +138,7 @@ function taskEdit(){
                       <textarea 
                         className="form-control border-2" 
                         id="FormDescription" 
-                        ref={descriptionInfo} 
+                        ref={descriptionInfo}
                         rows={3} 
                         placeholder="Describe task details..."
                         required
@@ -98,7 +155,7 @@ function taskEdit(){
                         type="date" 
                         className="form-control border-2" 
                         id="FormDate" 
-                        ref={taskDateInfo} 
+                        ref={taskDateInfo}
                         required 
                       />
                     </div>
@@ -109,7 +166,12 @@ function taskEdit(){
                         <i className="bi bi-exclamation-triangle-fill text-warning me-2"></i>
                         Priority
                       </label>
-                      <select className="form-select border-2" id="FormPriority" ref={taskPriorityInfo} required>
+                      <select 
+                        className="form-select border-2" 
+                        id="FormPriority" 
+                        ref={taskPriorityInfo}
+                        required
+                      >
                         <option value="">Select priority</option>
                         <option value="High">🔴 High</option>
                         <option value="Medium">🟡 Medium</option>
@@ -123,7 +185,12 @@ function taskEdit(){
                         <i className="bi bi-gear-fill text-success me-2"></i>
                         Status
                       </label>
-                      <select className="form-select border-2" id="FormStatus" ref={taskStatusInfo} required>
+                      <select 
+                        className="form-select border-2" 
+                        id="FormStatus" 
+                        ref={taskStatusInfo}
+                        required
+                      >
                         <option value="">Select status</option>
                         <option value="Pending">⏳ Pending</option>
                         <option value="In Progress">🔄 In Progress</option>
@@ -145,7 +212,7 @@ function taskEdit(){
                           type="file" 
                           className="form-control border-2" 
                           id="FormAttachments" 
-                          ref={taskAttachmentsInfo} 
+                          ref={taskAttachmentsInfo}
                           multiple 
                         />
                       </div>
@@ -164,7 +231,7 @@ function taskEdit(){
                         className="btn btn-primary px-4 py-2 rounded-pill shadow-sm w-100 w-md-auto"
                       >
                         <i className="bi bi-check-circle-fill me-2"></i>
-                        Create Task
+                        Update Task
                       </button>
                       <br />
                       <br />
@@ -184,4 +251,4 @@ function taskEdit(){
     );
 }
 
-export default taskEdit;
+export default TaskEdit;
