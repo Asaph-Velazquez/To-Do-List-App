@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
 function TaskEdit() {
-    // Refs para los campos del formulario
+    // Refs for form fields
     const taskNameInfo = useRef<HTMLInputElement>(null);
     const descriptionInfo = useRef<HTMLTextAreaElement>(null);
     const taskDateInfo = useRef<HTMLInputElement>(null);
@@ -11,7 +11,7 @@ function TaskEdit() {
     const taskCategoryInfo = useRef<HTMLInputElement>(null);
     const taskAttachmentsInfo = useRef<HTMLInputElement>(null);
   
-    // Estado para la tarea
+    // Task state
     const [task, setTask] = useState<{
       taskname: string;
       taskdescription: string;
@@ -45,12 +45,12 @@ function TaskEdit() {
           if (response.data) {
             setTask(response.data);
             
-            // Formatear la fecha para el input date (si es necesario)
+            // Format date for date input (if needed)
             const formattedDate = response.data.taskdate 
               ? new Date(response.data.taskdate).toISOString().split('T')[0]
               : '';
             
-            // Asignar valores a los campos del formulario
+            // Assign values to form fields
             if (taskNameInfo.current) taskNameInfo.current.value = response.data.taskname || '';
             if (descriptionInfo.current) descriptionInfo.current.value = response.data.taskdescription || '';
             if (taskDateInfo.current) taskDateInfo.current.value = formattedDate;

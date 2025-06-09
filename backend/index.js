@@ -267,7 +267,7 @@ app.post("/api/tasks", async (req, res) => {
 //Task Edit  PROTOTYPE, NOT FINISH YET
 app.get("/api/tasks/:id", async (req, res) => {
   try {
-    const { id } = req.params; // Aquí correctamente captura el ID de la URL
+    const { id } = req.params; // Here correctly captures the ID from the URL
     console.log("Fetching task with ID:", id);
 
     const result = await pool.query("SELECT * FROM tasks WHERE taskid = $1", [id]);
@@ -276,7 +276,7 @@ app.get("/api/tasks/:id", async (req, res) => {
       return res.status(404).json({ error: "Task not found" });
     }
 
-    res.json(result.rows[0]); // Devuelve la tarea encontrada
+    res.json(result.rows[0]); // Returns the found task
   } catch (err) {
     console.error("❌ DATABASE ERROR:", err.message);
     res.status(500).json({ error: "Error fetching task" });
