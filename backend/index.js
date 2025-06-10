@@ -283,6 +283,66 @@ app.get("/api/tasks/:id", async (req, res) => {
   }
 });
 
+//upload Data
+app.put("/api/tasks/:id", async (req, res) => {
+  const { id } = req.params;
+  const {
+    taskName,
+    taskDescription,
+    taskDate,
+    taskPriority,
+    taskStatus,
+    taskCategory,
+    taskAttachments,
+  } = req.body;
+
+  if (
+    !taskName ||
+    !taskDescription ||
+    !taskDate ||
+    !taskPriority ||
+    !taskStatus
+  ) {
+    return res.status(400).json({
+      error: "Fields taskName, taskDescription, taskDate, taskPriority, and taskStatus are required",
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      `UPDATE tasks 
+       SET 
+         taskName = $1, 
+         taskDescription = $2, 
+         taskDate = $3, 
+         taskPriority = $4, 
+         taskStatus = $5, 
+         taskCategory = $6, 
+         taskAttachments = $7
+       WHERE taskId = $8
+       RETURNING *`,
+      [
+        taskName,
+        taskDescription,
+        taskDate,
+        taskPriority,
+        taskStatus,
+        taskCategory,
+        taskAttachments,
+        id,
+      ]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.json({ message: "Task updated successfully", task: result.rows[0] });
+  } catch (err) {
+    console.error("❌ DATABASE ERROR:", err.message);
+    res.status(500).json({ error: "Error updating task" });
+  }
+});
 
 app.get("/api/Administrators/", async (req, res) => {
   try {
