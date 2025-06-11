@@ -13,7 +13,7 @@ function TaskEdit() {
     taskStatus: '',
     taskCategory: '',
     taskAttachments: '',
-    userId: '' // Añadido para compatibilidad con tu backend
+    userId: ''
   });
 
   // Estados para manejo de la UI
@@ -23,7 +23,7 @@ function TaskEdit() {
   const [alert, setAlert] = useState<{type: 'success' | 'danger', message: string} | null>(null);
 
   const taskId = localStorage.getItem("taskID");
-  const userId = localStorage.getItem("userID"); // Asumiendo que guardas el userID en localStorage
+  const userId = localStorage.getItem("userID");
 
   // Fetch task data
   useEffect(() => {
@@ -77,7 +77,6 @@ function TaskEdit() {
   // Handle file input changes
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      // Aquí puedes manejar la subida de archivos si es necesario
       setFormData(prev => ({
         ...prev,
         taskAttachments: e.target.files?.[0]?.name || prev.taskAttachments
@@ -90,7 +89,6 @@ function TaskEdit() {
     e.preventDefault();
     if (!taskId || isSubmitting) return;
   
-    // Validación de campos requeridos como en tu backend
     if (
       !formData.taskName ||
       !formData.taskDescription ||
@@ -128,7 +126,7 @@ function TaskEdit() {
         message: response.data.message || 'Task updated successfully!'
       });
       
-      // Redirigir después de 2 segundos para que el usuario pueda ver el mensaje de éxito
+      // Redirect after 2 seconds so the user can see the success message
       setTimeout(() => {
         navigate('/ToDoList');
       }, 2000);
