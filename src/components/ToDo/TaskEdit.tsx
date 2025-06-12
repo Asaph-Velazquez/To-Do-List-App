@@ -16,7 +16,6 @@ function TaskEdit() {
     userId: ''
   });
 
-  // Estados para manejo de la UI
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -131,7 +130,7 @@ function TaskEdit() {
         navigate('/ToDoList');
       }, 2000);
       
-      // Actualizar con los datos devueltos por el servidor
+      // Update with server returned data
       const formattedDate = response.data.task?.taskdate 
         ? new Date(response.data.task.taskdate).toISOString().split('T')[0]
         : '';
